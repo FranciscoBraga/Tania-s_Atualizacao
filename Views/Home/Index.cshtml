@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Tânia´s Ateliê"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem-Vindos</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<section>
+			
+			<div id="esquerda">
+				
+				<img src="recursos/imagens/maxpromo.jpg" alt="promoção">
+				
+			</div>
+			
+			<div id="direita">
+				
+				<p>Promoção de Hoje</p>
+				<p>Vestidos Vermelhos R$ 99.99</p>
+				
+			</div>
+			
+		</section>
+		
+		<section id="produtos">
+		
+			<div class="roupas">
+				
+				<img src="recursos/imagens/vestido_vermelho1.jpg" alt="promoção">
+				<p>Uma linda peça para o seu guarda roupas, perfeita para uma noite inesquecível.</p>
+				<p>Vestido confeccionado em Crepe Dior.</p>
+				<a onclick="#" href="#">Comprar</a>
+			
+			</div>
+			
+			<div class="roupas">
+			
+				<img src="recursos/imagens/vestido_vermelho2.jpg" alt="promoção">
+				<p>Versatil e Elegante, se adequa ao seu momento.</p>
+				<p> Vestido confeccionado em Viscose Twill.</p>
+				<a onclick="#" href="#">Comprar</a>
+			
+			</div>
+			
+			<div class="roupas">
+			
+				<img src="recursos/imagens/vestido_vermelho3.jpg" alt="promoção">
+				<p>roupa 1</p>
+				<p>Esta roupa é feita de linho, ...</p>
+				<a onclick="#" href="#">Comprar</a>
+			
+			</div>		
+
+			<div class="roupas">
+			
+				<img src="recursos/imagens/vestido_vermelho4.jpg" alt="promoção">
+				<p>roupa 1</p>
+				<p>Esta roupa é feita de linho, ...</p>
+				<a onclick="#" href="#">Comprar</a>
+			
+			</div>		
+			
+			<div class="roupas">
+			
+				<img src="recursos/imagens/vestido_vermelho5.jpg" alt="promoção">
+				<p>roupa 1</p>
+				<p>Esta roupa é feita de linho, ...</p>
+				<a onclick="#" href="#">Comprar</a>
+				
+			</div>		
+			
+			<div class="roupas">
+			
+				<img src="recursos/imagens/vestido_vermelho6.jpg" alt="promoção">
+				<p>roupa 1</p>
+				<p>Esta roupa é feita de linho, ...</p>
+				<a onclick="#" href="#">Comprar</a>
+			
+			</div>
+			
+			
+		</section>
+			 	
+		<ul>
+
+			@foreach (var nome in(List<string>)ViewData["nome"]!)
+				{
+					<li>@nome</li>
+				}
+		</ul>
+
+		<ul>
+
+			@foreach (var email in (List<string>)ViewData["emails"]!)
+				{
+					<li>@email</li>
+				}
+		</ul>
+
+		<p>Total de usuários: @ViewData["cont"]</p>
