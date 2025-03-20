@@ -26,23 +26,23 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         using  var conn = _dbConnection.GetConnection();
-        using var cmd = new NpgsqlCommand("SELECT  a.nome,a.email FROM usuario a", conn);
+        using var cmd = new NpgsqlCommand("SELECT a.nome FROM usuario a", conn);
         using var reader = cmd.ExecuteReader();
 
         int cont = 0;
         var nomes =  new List<string>();
-        var emails =  new List<string>();
+        //var emails =  new List<string>();
          
          while (reader.Read())
          {
 
             nomes.Add(reader.GetString(0));
-            emails.Add(reader.GetString(1));
+            //emails.Add(reader.GetString(1));
             cont++;
          }
 
             ViewData["nomes"] = nomes;
-            ViewData["emails"] = emails;
+           // ViewData["emails"] = emails;
             ViewData["cont"] = cont;
 
         return View();
@@ -76,5 +76,28 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public IActionResult Register(){
+        
+        return View ();
+
+    }
+
+    [HttpPost]
+
+    public async Task<IActionResult> Register(User user, IFormFile Photo){
+
+        if(ModelState.IsValid){
+            await _userRepository.InsertUser(user,Photo);
+            return RedirectToAction("Index");
+        }
+        return View(user);
+    }
+
+    public IActionResult ListUser(){
+
+        var users = _userRepository.ListUser();
+        return View(users);
     }
 }

@@ -84,7 +84,7 @@
 			 	
 		<ul>
 
-			@foreach (var nome in(List<string>)ViewData["nome"]!)
+			@foreach (var nome in (List<string>)ViewData["nomes"]!)
 				{
 					<li>@nome</li>
 				}
@@ -92,10 +92,10 @@
 
 		<ul>
 
-			@foreach (var email in (List<string>)ViewData["emails"]!)
 				{
-					<li>@email</li>
+@* 				@foreach (var email in (List<string>)ViewData["emails"]!)
+				<li>@email</li>
 				}
 		</ul>
 
-		<p>Total de usuários: @ViewData["cont"]</p>
+		<p>Total de usuários: @ViewData["cont"]</p> *@

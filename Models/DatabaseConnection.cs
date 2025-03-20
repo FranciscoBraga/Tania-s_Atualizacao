@@ -10,7 +10,7 @@ public class DatabaseConnection
     {
 
         _connectionString = configuration.GetConnectionString("DefaultConnection");
-         Console.WriteLine(connection+"connection");
+       
     }
 
     public NpgsqlConnection GetConnection()

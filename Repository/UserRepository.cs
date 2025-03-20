@@ -1,10 +1,9 @@
-using System.Threading.Tasks;
+
 using TaniasAtelie.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR.Protocol;
+
 using Npgsql;
-using TaniasAtelie.Models;
+using System.Net;
+
 
 namespace TaniasAtelie.Repository;
 
@@ -60,4 +59,63 @@ public List<User> ListUser()
 return users;
 
 }
+
+public async Task InsertUser(User user, IFormFile arquivo)
+{
+
+    string caminhoArquivo = await Upload(arquivo,"img");
+
+    using (var connection = _dbConnection.GetConnection())
+    {
+
+        using (var command = connection.CreateCommand())
+        {
+
+            command.CommandText = "INSERT INTO usuario(nome,senha,foto) values (@nome,@senha,@foto)";
+
+            var nomeParam = command.CreateParameter();
+            nomeParam.ParameterName = "@nome";
+            nomeParam.Value = user.Nome;
+            command.Parameters.Add(nomeParam);
+
+
+            var senhaParam = command.CreateParameter();
+            senhaParam.ParameterName = "@senha";
+            senhaParam.Value = user.Nome;
+            command.Parameters.Add(senhaParam);
+
+
+            var fotoParam = command.CreateParameter();
+            fotoParam.ParameterName = "@foto";
+            fotoParam.Value = user.Nome;
+            command.Parameters.Add(fotoParam);
+
+            command.ExecuteNonQuery();
+        }
+    }
+}
+
+public async Task<string> Upload(IFormFile arquivo, string pasta){
+
+    if(arquivo == null || arquivo.Length == 0){
+
+        return "";
+    }
+
+        string caminhoPasta = Path.Combine(_webHostEnvironment.WebRootPath,pasta);
+
+        if(!Directory.Exists(caminhoPasta))
+        Directory.CreateDirectory(caminhoPasta);
+
+   string nomeArquivo = Guid.NewGuid(). ToString()+Path.GetExtension(arquivo.FileName);
+   string caminhoCompleto = Path.Combine(caminhoPasta,nomeArquivo);
+
+   using (var stream = new FileStream(caminhoCompleto,FileMode.Create))
+   {
+
+    await arquivo.CopyToAsync(stream);
+   }     
+
+   return $"/{pasta}/{nomeArquivo}";
+} 
 }
